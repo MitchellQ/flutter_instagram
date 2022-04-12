@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/screen_size.dart';
+import '../utils/screen.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileScreenLayout;
