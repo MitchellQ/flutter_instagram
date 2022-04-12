@@ -1,8 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../utils/colors.dart';
 import '../utils/screen.dart';
+import '../resources/auth_methods.dart';
+import '../utils/utils.dart';
 import '../widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -17,6 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  Uint8List? _image;
 
   @override
   void dispose() {
@@ -25,6 +31,14 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordController.dispose();
     _bioController.dispose();
     _usernameController.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+
+    setState(() {
+      _image = img;
+    });
   }
 
   @override
@@ -50,21 +64,28 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 24),
 
               //Profile Image
-              Stack(children: [
-                const CircleAvatar(
-                  radius: 64,
-                  backgroundImage: NetworkImage(
-                      'https://avatars.githubusercontent.com/u/40969453?v=4'),
-                ),
-                Positioned(
-                  bottom: -10,
-                  left: 80,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.add_a_photo, color: blueColor),
+              Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundImage:
+                              AssetImage('assets/default_profile.jpg'),
+                        ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: () => selectImage(),
+                      icon: const Icon(Icons.add_a_photo, color: blueColor),
+                    ),
                   ),
-                ),
-              ]),
+                ],
+              ),
               const SizedBox(height: 24),
 
               //Text input username
@@ -112,11 +133,17 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const SizedBox(height: 24),
 
-              //Sign in button
+              //Sign up button
               InkWell(
-                onTap: () {},
+                onTap: () async {
+                  String res = await AuthMethods().signUpUser(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      username: _usernameController.text,
+                      bio: _bioController.text);
+                },
                 child: Container(
-                  child: const Text('Log in'),
+                  child: const Text('Sign up'),
                   width: width,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -132,32 +159,6 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const SizedBox(height: 12),
               Flexible(child: Container(), flex: 2),
-
-              //Transition to sign up
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: const Text('Don\'t have an account?'),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      child: const Text(
-                        'Sign up!',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
