@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/colors.dart';
+import '../utils/screen.dart';
 import '../widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -28,6 +29,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double percentage = Screen.isWeb(context) ? 30 : double.infinity;
+    final width = Screen.width(context, percentage: percentage);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -64,35 +68,47 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 24),
 
               //Text input username
-              TextFieldInput(
-                hintText: 'Pick a username',
-                textInputType: TextInputType.text,
-                textEditingController: _usernameController,
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Pick a username',
+                  textInputType: TextInputType.text,
+                  textEditingController: _usernameController,
+                ),
               ),
               const SizedBox(height: 24),
 
               //Text input email
-              TextFieldInput(
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Enter your email',
+                  textInputType: TextInputType.emailAddress,
+                  textEditingController: _emailController,
+                ),
               ),
               const SizedBox(height: 24),
 
               //Text input password
-              TextFieldInput(
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                isPassword: true,
-                textEditingController: _passwordController,
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Enter your password',
+                  textInputType: TextInputType.text,
+                  isPassword: true,
+                  textEditingController: _passwordController,
+                ),
               ),
               const SizedBox(height: 24),
 
               //Text input bio
-              TextFieldInput(
-                hintText: 'Enter your bio',
-                textInputType: TextInputType.text,
-                textEditingController: _bioController,
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Enter your bio',
+                  textInputType: TextInputType.text,
+                  textEditingController: _bioController,
+                ),
               ),
               const SizedBox(height: 24),
 
@@ -101,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 onTap: () {},
                 child: Container(
                   child: const Text('Log in'),
-                  width: double.infinity,
+                  width: width,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const ShapeDecoration(

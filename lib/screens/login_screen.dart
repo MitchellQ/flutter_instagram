@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/colors.dart';
+import '../utils/screen.dart';
 import '../widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,11 +25,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double percentage = Screen.isWeb(context) ? 30 : double.infinity;
+    final width = Screen.width(context, percentage: percentage);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32),
-          width: double.infinity,
+          width: Screen.width(context, percentage: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -42,19 +46,25 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 24),
 
               //Text input email
-              TextFieldInput(
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Enter your email',
+                  textInputType: TextInputType.emailAddress,
+                  textEditingController: _emailController,
+                ),
               ),
+              const SizedBox(height: 24),
 
               //Text input password
-              const SizedBox(height: 24),
-              TextFieldInput(
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                isPassword: true,
-                textEditingController: _passwordController,
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Enter your password',
+                  textInputType: TextInputType.text,
+                  isPassword: true,
+                  textEditingController: _passwordController,
+                ),
               ),
               const SizedBox(height: 24),
 
@@ -63,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {},
                 child: Container(
                   child: const Text('Log in'),
-                  width: double.infinity,
+                  width: width,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const ShapeDecoration(
