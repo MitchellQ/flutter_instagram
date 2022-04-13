@@ -19,7 +19,6 @@ class AuthMethods {
     required String bio,
     required Uint8List profilePicture,
   }) async {
-    String res = 'Some error occurred';
     try {
       if (email.isNotEmpty ||
           password.isNotEmpty ||
@@ -27,7 +26,6 @@ class AuthMethods {
           bio.isNotEmpty ||
           profilePicture != null) {
         String salt = const Uuid().v4();
-
         final hash =
             Crypt.sha256(password, rounds: 10000, salt: salt).toString();
 
@@ -50,12 +48,12 @@ class AuthMethods {
           'profilePictureUrl': profilePictureUrl,
         });
 
-        res = 'Success';
+        return 'User added successfully';
       }
     } catch (e) {
-      res = e.toString();
+      return e.toString();
     }
 
-    return res;
+    return 'Something went wrong';
   }
 }
