@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 pickImage(ImageSource src) async {
@@ -7,5 +8,7 @@ pickImage(ImageSource src) async {
 
   if (_file != null) return await _file.readAsBytes();
 
-  print('No image selected');
+  if (kDebugMode) {
+    print('No image selected');
+  }
 }
