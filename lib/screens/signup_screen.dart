@@ -21,6 +21,8 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController =
+      TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   Uint8List? _image;
@@ -123,7 +125,17 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const SizedBox(height: 24),
 
-              // TODO: Confirm password input and functionality
+              //Text input password
+              SizedBox(
+                width: width,
+                child: TextFieldInput(
+                  hintText: 'Confirm password',
+                  textInputType: TextInputType.text,
+                  isPassword: true,
+                  textEditingController: _passwordConfirmController,
+                ),
+              ),
+              const SizedBox(height: 24),
 
               //Text input bio
               SizedBox(
@@ -138,6 +150,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
               //Sign up button
               InkWell(
+                // TODO: Add validation to compare passwords for equality
                 onTap: () async {
                   String res = await AuthMethods().signUpUser(
                     email: _emailController.text,
