@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -122,6 +123,8 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const SizedBox(height: 24),
 
+              // TODO: Confirm password input and functionality
+
               //Text input bio
               SizedBox(
                 width: width,
@@ -137,10 +140,16 @@ class _SignupScreenState extends State<SignupScreen> {
               InkWell(
                 onTap: () async {
                   String res = await AuthMethods().signUpUser(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      username: _usernameController.text,
-                      bio: _bioController.text);
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _usernameController.text,
+                    bio: _bioController.text,
+                    profilePicture: _image!,
+                  );
+
+                  if (kDebugMode) {
+                    print(res);
+                  }
                 },
                 child: Container(
                   child: const Text('Sign up'),
