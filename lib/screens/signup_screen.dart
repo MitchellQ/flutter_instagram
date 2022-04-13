@@ -1,13 +1,12 @@
 import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../resources/auth_methods.dart';
 import '../utils/colors.dart';
 import '../utils/screen.dart';
-import '../resources/auth_methods.dart';
 import '../utils/utils.dart';
 import '../widgets/text_field_input.dart';
 
@@ -159,10 +158,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     bio: _bioController.text,
                     profilePicture: _image!,
                   );
-
-                  if (kDebugMode) {
-                    print(res);
-                  }
                 },
                 child: Container(
                   child: const Text('Sign up'),
