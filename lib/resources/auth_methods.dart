@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
+import 'package:crypt/crypt.dart';
 
 import 'storage_methods.dart';
 
@@ -24,9 +26,14 @@ class AuthMethods {
           username.isNotEmpty ||
           bio.isNotEmpty ||
           profilePicture != null) {
+        String salt = const Uuid().v4();
+
+        final hash =
+            Crypt.sha256(password, rounds: 10000, salt: salt).toString();
+
         // Register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
+            email: email, password: hash);
 
         String profilePictureUrl = await StorageMethods()
             .uploadImageToStorage('profilePictures', profilePicture, false);
@@ -36,6 +43,7 @@ class AuthMethods {
           'username': username,
           'uid': cred.user!.uid,
           'email': email,
+          'salt': salt,
           'bio': bio,
           'followers': [],
           'following': [],
