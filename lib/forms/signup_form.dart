@@ -109,14 +109,14 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: 'Choose a username',
               textInputType: TextInputType.text,
               textEditingController: _usernameController,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(
-                  RegExp(r"[a-zA-Z]+|\s"),
-                )
-              ],
-              validator: (val) {
-                if (val != null && !val.isValidName) return 'Enter valid name';
-              },
+              // inputFormatters: [
+              //   FilteringTextInputFormatter.allow(
+              //     RegExp(r"[a-zA-Z]+|\s"),
+              //   )
+              // ],
+              // validator: (val) {
+              //   if (val != null && !val.isValidName) return 'Enter valid name';
+              // },
             ),
           ),
           const SizedBox(height: 24),
@@ -128,12 +128,12 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: 'Enter your email',
               textInputType: TextInputType.emailAddress,
               textEditingController: _emailController,
-              validator: (val) {
-                if (val != null && !val.isValidEmail)
-                  return 'Enter valid email address';
+              // validator: (val) {
+              //   if (val != null && !val.isValidEmail)
+              //     return 'Enter valid email address';
 
-                return null;
-              },
+              //   return null;
+              // },
             ),
           ),
           const SizedBox(height: 24),
@@ -146,35 +146,35 @@ class _SignUpFormState extends State<SignUpForm> {
               textInputType: TextInputType.text,
               isPassword: true,
               textEditingController: _passwordController,
-              validator: (val) {
-                if (val != null && !val.isValidPassword) {
-                  return 'Use an uppercase, lowercase, digit, and special character. 8 characters minimum';
-                }
+              // validator: (val) {
+              //   if (val != null && !val.isValidPassword) {
+              //     return 'Use an uppercase, lowercase, digit, and special character. 8 characters minimum';
+              //   }
 
-                return null;
-              },
+              //   return null;
+              // },
             ),
           ),
           const SizedBox(height: 24),
 
-          //Text input confirm password
-          SizedBox(
-            width: width,
-            child: TextFieldInput(
-              hintText: 'Confirm password',
-              textInputType: TextInputType.text,
-              isPassword: true,
-              textEditingController: _passwordConfirmController,
-              validator: (val) {
-                if (val != null && val != _passwordController.text) {
-                  return 'Passwords don\'t match';
-                }
+          // //Text input confirm password
+          // SizedBox(
+          //   width: width,
+          //   child: TextFieldInput(
+          //     hintText: 'Confirm password',
+          //     textInputType: TextInputType.text,
+          //     isPassword: true,
+          //     textEditingController: _passwordConfirmController,
+          //     validator: (val) {
+          //       if (val != null && val != _passwordController.text) {
+          //         return 'Passwords don\'t match';
+          //       }
 
-                return null;
-              },
-            ),
-          ),
-          const SizedBox(height: 24),
+          //       return null;
+          //     },
+          //   ),
+          // ),
+          // const SizedBox(height: 24),
 
           //Text input bio
           SizedBox(
@@ -183,18 +183,18 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: 'Enter your bio',
               textInputType: TextInputType.text,
               textEditingController: _bioController,
-              validator: (val) {
-                if (val != '') return 'Bio can\'t be blank';
+              // validator: (val) {
+              //   if (val != '') return 'Bio can\'t be blank';
 
-                return null;
-              },
+              //   return null;
+              // },
             ),
           ),
           const SizedBox(height: 24),
 
           //Sign up button
           InkWell(
-            // TODO: Add validation to compare passwords for equality
+            // TODO: Add validation to compare passwords for equality etc
             onTap: () => signUpUser(),
             child: Container(
               child: _isLoading
