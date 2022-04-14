@@ -197,10 +197,15 @@ class _SignUpFormState extends State<SignUpForm> {
             // TODO: Add validation to compare passwords for equality etc
             onTap: () => signUpUser(),
             child: Container(
+              height: 48,
               child: _isLoading
                   ? const Center(
-                      child: CircularProgressIndicator(
-                        color: primaryColor,
+                      child: SizedBox(
+                        height: 35,
+                        width: 35,
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
                       ),
                     )
                   : const Text('Sign up'),
