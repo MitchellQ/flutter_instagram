@@ -32,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32),
-          width: Screen.width(context, percentage: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
