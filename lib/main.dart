@@ -5,8 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'responsive/mobile_screen_layout.dart';
 // import 'responsive/responsive_screen_layout.dart';
 // import 'responsive/web_screen_layout.dart';
-// import 'screens/login_screen.dart';
-import 'screens/signup_screen.dart';
+import 'screens/login_screen.dart';
+// import 'screens/signup_screen.dart';
 import 'utils/colors.dart';
 
 void main() async {
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       //   mobileScreenLayout: MobileScreenLayout(),
       //   webScreenLayout: WebScreenLayout(),
       // ),
-      home: const SignupScreen(),
+      home: const LoginScreen(),
     );
   }
 }
