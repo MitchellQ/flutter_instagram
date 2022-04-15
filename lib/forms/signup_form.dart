@@ -62,9 +62,9 @@ class _SignUpFormState extends State<SignUpForm> {
       _isLoading = false;
     });
 
-    // if (res != 'User added successfully') {
-    //   showSnackBar(res, context);
-    // }
+    if (res != 'User added successfully') {
+      showSnackBar(res, context);
+    }
   }
 
   @override
