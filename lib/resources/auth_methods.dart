@@ -25,23 +25,28 @@ class AuthMethods {
           username.isNotEmpty ||
           bio.isNotEmpty ||
           profilePicture != null) {
-        String salt = const Uuid().v4();
-        final hash =
-            Crypt.sha256(password, rounds: 10000, salt: salt).toString();
+        // String salt = const Uuid().v4();
+        // final hash =
+        //     Crypt.sha256(password, rounds: 10000, salt: salt).toString();
 
         // Register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
-            email: email, password: hash);
+          email: email,
+          password: /*hash*/ password,
+        );
 
-        String profilePictureUrl = await StorageMethods()
-            .uploadImageToStorage('profilePictures', profilePicture, false);
+        String profilePictureUrl = await StorageMethods().uploadImageToStorage(
+          'profilePictures',
+          profilePicture,
+          false,
+        );
 
         // Add user to db
         await _firestore.collection('users').doc(cred.user!.uid).set({
           'username': username,
           'uid': cred.user!.uid,
           'email': email,
-          'salt': salt,
+          // 'salt': salt,
           'bio': bio,
           'followers': [],
           'following': [],
@@ -55,5 +60,25 @@ class AuthMethods {
     }
 
     return 'Something went wrong';
+  }
+
+  // Login username
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    if (email.isEmpty || password.isEmpty) {
+      return 'Please enter your email and password';
+    }
+
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return 'Login successful';
+    } catch (e) {
+      return e.toString();
+    }
   }
 }
