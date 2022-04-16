@@ -3,6 +3,7 @@ import 'package:flutter_instagram/forms/signup_form.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/colors.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -12,6 +13,14 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  void navigateToLogin() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +44,35 @@ class _SignupScreenState extends State<SignupScreen> {
 
               const SizedBox(height: 12),
               Flexible(child: Container(), flex: 2),
+
+              //Transition to sign up
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: const Text('Already have an account?'),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  InkWell(
+                    onTap: navigateToLogin,
+                    child: Container(
+                      child: const Text(
+                        'Log in!',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: blueColor,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

@@ -3,6 +3,10 @@ import 'package:flutter_instagram/utils/utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../resources/auth_methods.dart';
+import '../screens/signup_screen.dart';
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_screen_layout.dart';
+import '../responsive/web_screen_layout.dart';
 import '../utils/colors.dart';
 import '../utils/screen.dart';
 import '../widgets/text_field_input.dart';
@@ -37,13 +41,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (res != 'Login successful') {
       showSnackBar(res, context);
+    }
 
-      return;
+    if (res == 'Login Successful') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
     }
 
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void navigateToSignup() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SignupScreen(),
+      ),
+    );
   }
 
   @override
@@ -133,12 +154,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {},
+                  InkWell(
+                    onTap: navigateToSignup,
                     child: Container(
                       child: const Text(
                         'Sign up!',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: blueColor,
+                        ),
                       ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,

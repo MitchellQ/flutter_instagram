@@ -1,15 +1,17 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../extensions/validation.dart';
+// import '../extensions/validation.dart';
 import '../resources/auth_methods.dart';
 import '../utils/colors.dart';
 import '../utils/screen.dart';
 import '../utils/utils.dart';
 import '../widgets/text_field_input.dart';
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_screen_layout.dart';
+import '../responsive/web_screen_layout.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -64,6 +66,17 @@ class _SignUpFormState extends State<SignUpForm> {
 
     if (res != 'User added successfully') {
       showSnackBar(res, context);
+    }
+
+    if (res == 'User added successfully') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
     }
   }
 
